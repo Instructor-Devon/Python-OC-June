@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Session</title>
+</head>
+<body>
+    <h1>Hello Session!</h1>
+
+    <h3>CLICKS: {{ session["clicks"] }}</h3>
+    <a href="/click"><button>Click Me!</button></a>
+    <a href="/signout"><button>Sign Out!</button></a>
+    <a href="/reset"><button>Reset Game </button></a>
+    <hr>
+    {% if not has_entered %}
+    <form action="/add/name" method="post">
+        <input type="text" name="name" id="name" placeholder="Enter your Name!">
+        <button>Submit</button>
+    </form>
+    {% else %}
+    <h2>Welcome {{ session["name"] }}</h2>
+    {% endif %}
+    <hr>
+    <h2>Previous Users!</h2>
+    {% for user in session["history"] %}
+        <p>{{ user }}</p>
+    {% endfor %}
+</body>
+</html>
