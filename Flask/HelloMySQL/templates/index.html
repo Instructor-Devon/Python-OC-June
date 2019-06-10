@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MYSQL FUN!</title>
+</head>
+<body>
+    <h1>MySql YAY</h1>
+    <h2>My Homies:</h2>
+    {% for homie in all_homies %}
+        <a href="/show/{{ homie['id'] }}">{{ homie["name"] }} from {{ homie["location"] }}</a>
+    {% endfor %}
+    <hr>
+    <form action="/create" method="post">
+        <input type="text" name="name" placeholder="Enter a name:">
+        <input type="text" name="location" placeholder="Enter a location:">
+        <button>Add homie</button>
+    </form>
+</body>
+</html>
