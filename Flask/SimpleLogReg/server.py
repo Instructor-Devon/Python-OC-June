@@ -71,13 +71,12 @@ def dashboard():
         return redirect("/")
     mysql = connectToMySQL("mydb")
     user = mysql.query_db("SELECT * FROM users WHERE id = %(id)s", {"id": session[USER_KEY]})[0]
-    qs = "SELECT * FROM posts JOIN users ON posts.user_id = users.id"
-    posts = connectToMySQL("mydb").query_db(qs)
-    return render_template("dashboard.html", user=user, posts=posts)
+    return render_template("dashboard.html", user=user)
 
 @app.route("/create", methods=["POST"])
 def create():
     # validating....
+    print(request.form)
     if not USER_KEY in session:
         return redirect("/")
 
@@ -90,6 +89,14 @@ def create():
 
     connectToMySQL("mydb").query_db(insert, data)
 
-    return redirect('/dashboard')
+    return redirect('/fetch')
+
+@app.route("/fetch")
+def fetch_posts():
+    
+    
+    qs = "SELECT * FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC"
+    posts = connectToMySQL("mydb").query_db(qs)
+    return render_template("posts_partial.html", posts=posts)
 
 app.run(debug=True)

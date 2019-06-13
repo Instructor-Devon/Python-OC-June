@@ -1,0 +1,8 @@
+<h2>Posts:</h2>
+{% for post in posts %}
+<div class="post">
+    <h4>{{ post["topic"] }}</h4>
+    <p>{{ post["content"] }}</p>
+    <h5>Posted by {{ post["first_name"] }} {{ post["last_name"] }}</h5>
+</div>
+{% endfor %}    
