@@ -27,9 +27,14 @@ def login():
         
         # if we have successfuly check out our user...PUT ID IN SESH!
             session[USER_KEY] = result[0]["id"]
-            return redirect("/success")
+            return redirect("/dashboard")
 
     flash("Invalid Email/Password")
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+    session.clear()
     return redirect("/")
 
 @app.route("/register", methods=["POST"])
@@ -69,9 +74,12 @@ def dashboard():
     # only regisered/loged in users should be here!
     if not USER_KEY in session:
         return redirect("/")
+
     mysql = connectToMySQL("mydb")
-    user = mysql.query_db("SELECT * FROM users WHERE id = %(id)s", {"id": session[USER_KEY]})[0]
-    return render_template("dashboard.html", user=user)
+    user = mysql.query_db("SELECT * FROM users WHERE id = %(id)s", {"id": session[USER_KEY]})
+    print(user)
+    print(user[0])
+    return render_template("dashboard.html", user=user[0])
 
 @app.route("/create", methods=["POST"])
 def create():
