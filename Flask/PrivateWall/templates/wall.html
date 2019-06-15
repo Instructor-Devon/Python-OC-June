@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user["first_name"] }}</h1>
+        <a href="/logout">Logout</a>
+        <hr>
+        <div class="float-left">
+
+            <h3>You have ({{ messages | length }}) messages</h3>
+            {% for message in messages %}
+            <div class="message">
+                <h4>{{ message['sender_name'] }} says: </h4>
+                <blockquote>{{ message['content'] }}</blockquote>
+                <a href="/delete/{{ message['id'] }}">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="float-right">
+            <h3>Send Messages</h3>
+            {% for other in others %}
+                <form action="/create" method="post">
+                    <input type="hidden" name="recip" value="{{ other['id'] }}">
+                    <label for="message">{{ other["first_name"] }}</label>
+                    <textarea name="message" id="message"></textarea>
+                    <button>Send</button>
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+    </body>
+    </html>
+    
