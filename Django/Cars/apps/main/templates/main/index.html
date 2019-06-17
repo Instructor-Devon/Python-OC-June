@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+    <title>Cars</title>
+</head>
+<body>
+    <div class="container">
+
+        <h2>Cars n Drivers</h2>
+        <div class="float-left">
+            
+            <h3>Add a Driver</h3>
+            <form action="/driver" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">First name</label>
+                    <input type="text" id="first_name" class="form-control" name="first_name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last name</label>
+                    <input type="text" id="last_name" class="form-control" name="last_name">
+                </div>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div class="float-right">
+            
+            <h3>Add a Car</h3>
+            <form action="/car" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="driver">Driver</label>
+                    <select name="driver" id="driver">
+                        {% for driver in drivers %}
+                        <option value="{{ driver.id }}">{{ driver.first_name }} {{ driver.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="make">Make</label>
+                    <input type="text" id="make" class="form-control" name="make">
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <input type="text" id="model" class="form-control" name="model">
+                </div>
+                <div class="form-group">
+                    <label for="speed">Speed</label>
+                    <input type="text" id="speed" class="form-control" name="speed">
+                </div>
+                <button>Submit</button>
+            </form>
+        </div>
+        <hr>
+        <h3>All Cars:</h3>
+        {% for car in cars %}
+            <p>{{ car.make }} {{ car.model }} (driven by {{ car.owner.first_name }})</p>
+        {% endfor %}
+    </div>
+    </body>
+    </html>
