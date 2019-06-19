@@ -5,3 +5,4 @@ My Lecture code goes here, use responsibly
 - [Private Wall](https://vimeo.com/342383174/1869ac45dc)
 - [Django Validations](https://vimeo.com/343119168/60809cc022)
 - [Many to Manys](https://vimeo.com/343113702/85f136aa7b)
+- [Django Deployment](https://vimeo.com/343331912/0aa5d92934)
