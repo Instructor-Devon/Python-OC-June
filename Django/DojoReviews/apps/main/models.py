@@ -9,7 +9,7 @@ class User(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=45)
-
+    pub_date = models.DateTimeField()
     # reviews
 
 class Review(models.Model):
