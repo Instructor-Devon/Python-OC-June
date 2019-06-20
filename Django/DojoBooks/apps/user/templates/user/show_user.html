@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Book Smart</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ user.first_name }}</h1>
+        <h4>Books favorited by this user:</h4>
+        <ul>
+        {% for book in user.faved_books.all %}
+            <li>{{ book.title }}</li>
+        {% endfor %}
+        </ul>
+        <form action="/user/{{user.id}}/update" method="post">
+            {% csrf_token %}
+            <input type="text" name="first_name" value="{{ user.first_name }}">
+            <input type="text" name="last_name" value="{{ user.last_name }}">
+            <button>Update</button>
+        </form>
+        <a class="btn btn-danger" href="/user/{{ user.id }}/delete">DELETE</a>
+        <h2>Add book to {{ user.first_name }}'s favs:</h2>
+        <form action="/user/{{ user.id }}/favorite" method="post">
+            {% csrf_token %}
+            <select name="book_id">
+                {% for book in unfaved %}
+                <option value="{{ book.id }}">{{ book.title }}</option>
+                {% endfor %}
+            </select>
+            <button>Favorite This Book</button>
+        </form>
+    </div>
+</body>
+</html>

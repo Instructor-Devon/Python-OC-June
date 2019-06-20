@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Book Smart</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ book.title }}</h1>
+        <form action="/book/{{book.id}}/update" method="post">
+            {% csrf_token %}
+            <input type="text" name="title" value="{{ book.title }}">
+            <button>Update</button>
+        </form>
+        <a class="btn btn-danger" href="../book/{{ book.id }}/delete">DELETE</a>
+    </div>
+</body>
+</html>
